@@ -1,24 +1,19 @@
 const express = require('express');
-
 const app = express();
+const mongoose = require('mongoose');
+const Thing = require('./models/thing');
+const stuffRoutes = require('./routes/stuff');
+const userRoutes = require('./routes/user');
+mongoose.connect('mongodb+srv://tadtad:nicolas9@qsdqsdqsdqsdqsd.iejnsop.mongodb.net/?retryWrites=true&w=majority',
+  { useNewUrlParser: true,
+    useUnifiedTopology: true })
+  .then(() => console.log('Connexion à MongoDB réussie !'))
+  .catch(() => console.log('Connexion à MongoDB échouée !'));
 
-app.use((req, res, next) => {
-  console.log('Requête reçue !');
-  next();
-});
 
-app.use((req, res, next) => {
-  res.status(201);
-  next();
-});
 
-app.use((req, res, next) => {
-  res.json({ message: 'Votre requête a bien été reçue !' });
-  next();
-});
+app.use('/api/stuff', stuffRoutes);
+app.use('/api/auth', userRoutes);
 
-app.use((req, res, next) => {
-  console.log('Réponse envoyée avec succès !');
-});
 
 module.exports = app;
