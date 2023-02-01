@@ -1,12 +1,15 @@
 const Thing = require('../models/thing');
 
 exports.createThing = (req, res, next) => {
+  const thingSchema = JSON.parse(req.body.thing);
   const thing = new Thing({
-    title: req.body.title,
-    description: req.body.description,
-    imageUrl: req.body.imageUrl,
-    price: req.body.price,
-    userId: req.body.userId
+    ...thingSchema,
+    imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
+    heat: req.body.heat,
+    likes: 0,
+    dislikes: 0,
+    usersLiked: [""],
+    usersDisliked: [""],
   });
   thing.save().then(
     () => {

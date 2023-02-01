@@ -1,12 +1,13 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser')
-const jsonParser = bodyParser.json()
-const urlencodedParser = bodyParser.urlencoded({ extended: false })
+// const jsonParser = bodyParser.json()
+// const urlencodedParser = bodyParser.urlencoded({ extended: false })
 const mongoose = require('mongoose');
 const Thing = require('./models/thing');
 const stuffRoutes = require('./routes/stuff');
 const userRoutes = require('./routes/user');
+
 
 
 mongoose.connect('mongodb+srv://tadtad:nicolas9@qsdqsdqsdqsdqsd.iejnsop.mongodb.net/?retryWrites=true&w=majority',
