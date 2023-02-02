@@ -2,25 +2,28 @@ const Thing = require('../models/thing');
 
 exports.createThing = (req, res, next) => {
   const thingSchema = JSON.parse(req.body.thing);
+  delete thingSchema._id;
+  delete thingSchema._userId;
   const thing = new Thing({
     ...thingSchema,
+    userId: req.auth.userId,
     imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
     heat: req.body.heat,
-    likes: 0,
-    dislikes: 0,
-    usersLiked: [""],
-    usersDisliked: [""],
+    // likes: 0,
+    // dislikes: 0,
+    // usersLiked: [""],
+    // usersDisliked: [""],
   });
   thing.save().then(
     () => {
       res.status(201).json({
-        message: 'Post saved successfully!'
+        message: 'Object enregistré!'
       });
     }
   ).catch(
     (error) => {
       res.status(400).json({
-        error: error
+        error
       });
     }
   );

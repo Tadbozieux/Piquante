@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 // const urlencodedParser = bodyParser.urlencoded({ extended: false })
 const mongoose = require('mongoose');
 const Thing = require('./models/thing');
+const path = require("path");
 const stuffRoutes = require('./routes/stuff');
 const userRoutes = require('./routes/user');
 
@@ -39,6 +40,7 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use('/api/stuff', stuffRoutes);
 app.use('/api/auth', userRoutes);
+app.use("/images", express.static(path.join(__dirname, "images")));
 app.use(cors())
 
 
