@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+var cors = require('cors')
 const bodyParser = require('body-parser')
 // const jsonParser = bodyParser.json()
 // const urlencodedParser = bodyParser.urlencoded({ extended: false })
@@ -23,14 +24,23 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
   next();
   });
-
-
+//       autorisation requetes CORS via le  package node.js///////
+  app.get('/products/:id', function (req, res, next) {
+    res.json({msg: 'This is CORS-enabled for all origins!'})
+  })
   
+  app.listen(80, function () {
+    console.log('CORS-enabled web server listening on port 80')
+  })
+  //       autorisation requetes CORS via le  package node.js///////
+
   
 app.use(express.json());  
 app.use(bodyParser.json());
 app.use('/api/stuff', stuffRoutes);
 app.use('/api/auth', userRoutes);
+app.use(cors())
+
 
 
 module.exports = app;

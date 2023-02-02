@@ -1,5 +1,7 @@
 const bcrypt = require('bcrypt');
+const { JsonWebTokenError } = require('jsonwebtoken');
 const User = require ("../models/user");
+const jwt = require("JsonWebToken"); // appel jason web token pour cripter TOken
 
 
 exports.signup = (req, res, next) => {
@@ -31,7 +33,11 @@ exports.login = (req, res, next) => {
                   }
                   res.status(200).json({
                       userId: user._id,
-                      token: 'TOKEN'
+                      token: jwt.sign(    // fonction sign prend 3 arguments
+                        {userId: user._id},  // user ID
+                        "RANDOM_TOKEN_SECRET",  // clef secrete (normalement plus complexe)
+                        {expiresIn: "24h"} // expiration du token au bout de 24h
+                      )
                   });
               })
               .catch(error => res.status(500).json({ error }));
