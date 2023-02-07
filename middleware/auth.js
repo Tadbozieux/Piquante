@@ -18,7 +18,3 @@ module.exports = (req, res, next) => {
 
 
 
-
-// le token se constituant du mot "Bearer"  puis dui token en lui meme on ne garde que la seconde partie
-// decodage du token avec la methode verify
-// recuperation userId et rajouton cette valeur a l'object request transmis aux routes suivantes
