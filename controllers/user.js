@@ -1,7 +1,10 @@
-const bcrypt = require('bcrypt');
-const { JsonWebTokenError } = require('jsonwebtoken');
 const User = require ("../models/user");
-const jwt = require("JsonWebToken"); // appel jason web token pour cripter TOken
+
+const bcrypt = require('bcrypt');     //Cryptage (hash) du mdp
+
+const { JsonWebTokenError } = require('jsonwebtoken');
+const jwt = require("JsonWebToken"); // appel jason web token pour attribution TOken
+
 
 
 exports.signup = (req, res, next) => {
@@ -35,7 +38,7 @@ exports.login = (req, res, next) => {
                       userId: user._id,
                       token: jwt.sign(    // fonction sign prend 3 arguments
                         {userId: user._id},  // user ID
-                        "RANDOM_TOKEN_SECRET",  // clef secrete (normalement plus complexe)
+                        "RANDOM_TOKEN_SECRET",  // clef secrete 
                         {expiresIn: "24h"} // expiration du token au bout de 24h
                       )
                   });

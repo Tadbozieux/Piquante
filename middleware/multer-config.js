@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
         callback(null, 'images')
     },
     filename: (req, file, callback) =>{
-        const name = file.originalname.split(' ').join('_');    // on rename le l'image avec son nom d'origin en supprimant les espaces potentiels
+        const name = file.originalname.split(' ').join('_');    // on rename le l'image avec son nom d'origine en supprimant les espaces potentiels
         const extension = MIME_TYPES[file.minetype];            // le timestamp "Date.now()" permet de rendre le nom unique
         callback(null, name + Date.now() + '.' + extension);
     }
