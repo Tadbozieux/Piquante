@@ -1,3 +1,4 @@
+//  Framework
 const express = require('express');
 const app = express();
 
@@ -6,6 +7,7 @@ const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
+const helmet = require('helmet')
 
 const path = require("path");
 
@@ -39,7 +41,17 @@ app.use((req, res, next) => {
 
   
 
+
+
 app.use(express.json());  
+app.use(
+  helmet.contentSecurityPolicy({
+    useDefaults: true,
+    directives: {
+      "img-src": ["'self'", "https: data:"]
+    }
+  })
+)
 app.use('/api/sauces', sauceRoutes);
 app.use('/api/auth', userRoutes);
 app.use("/images", express.static(path.join(__dirname, "images")));
